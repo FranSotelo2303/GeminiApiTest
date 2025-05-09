@@ -24,3 +24,5 @@ src/uploads/*
 *.sln
 *.sw?
 .env
+
+docker-compose.yml
