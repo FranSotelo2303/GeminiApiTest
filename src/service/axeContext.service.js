@@ -3,14 +3,14 @@ import prisma from "../db/prisma.js";
 export const createPageContext = async (pageContext) => {
   const { website, axeContext, imagePath } = pageContext;
 
-  const exitsWebsite = await prisma.User.findFirst({
+  const exitsWebsite = await prisma.user.findFirst({
     where: {
       website: website,
     },
   });
 
   if (exitsWebsite) {
-    const newAudit = await prisma.Audit.create({
+    const newAudit = await prisma.audit.create({
       data: {
         axeContext: { data: axeContext },
         questionsContext: {}, 
@@ -25,14 +25,14 @@ export const createPageContext = async (pageContext) => {
     return newAudit;
   }
 
-  const newUser = await prisma.User.create({
+  const newUser = await prisma.user.create({
     data: {
       website: website,
       createdAt: new Date(),
     },
   });
 
-  const newAudit = await prisma.Audit.create({
+  const newAudit = await prisma.audit.create({
     data: {
       axeContext: { data: axeContext },
       questionsContext: {}, 

@@ -1,4 +1,5 @@
 import { createPageContext } from "../service/axeContext.service.js";
+import { createQuestionContext } from "../service/questionContext.service.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -22,7 +23,6 @@ export const processPageContext = async (req, res) => {
 
   const imageName = file.filename;
 
-  //usar la libreria path para obtener la ruta correcta
   const imagePath = path.join(__dirname, "..", "uploads", imageName);
 
   try {
@@ -33,3 +33,19 @@ export const processPageContext = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const processQuestionContext = async (req, res) => {
+  const { auditId, questionContext } = req.body;
+
+  if (!auditId || !questionContext) {
+    return res.status(400).json({ error: "Audit ID or question context is missing" });
+  }
+
+  try {
+    const result = await createQuestionContext(auditId, questionContext);
+    res.json({ message: "Processed successfully", result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
