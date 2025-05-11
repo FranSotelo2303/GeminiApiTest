@@ -10,7 +10,19 @@ export const createPageContext = async (pageContext) => {
   });
 
   if (exitsWebsite) {
-    return exitsWebsite;
+    const newAudit = await prisma.Audit.create({
+      data: {
+        axeContext: { data: axeContext },
+        questionsContext: {}, 
+        imagePath: imagePath || "", 
+        user: {
+          connect: {
+            id: exitsWebsite.id,
+          },
+        },
+      },
+    });
+    return newAudit;
   }
 
   const newUser = await prisma.User.create({
