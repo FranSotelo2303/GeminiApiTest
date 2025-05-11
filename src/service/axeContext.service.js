@@ -22,9 +22,9 @@ export const createPageContext = async (pageContext) => {
 
   const newAudit = await prisma.Audit.create({
     data: {
-      axeContext: axeContext,
+      axeContext: { data: axeContext },
       questionsContext: {}, 
-      imagePath: imagePath, 
+      imagePath: imagePath || "", 
       user: {
         connect: {
           id: newUser.id,

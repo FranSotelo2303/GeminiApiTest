@@ -3,6 +3,8 @@ import { createPageContext } from "../service/axeContext.service.js";
 export const processPageContext = async (req, res) => {
   const { website, axeContext } = req.body;
 
+  console.log(website, axeContext);
+
   if (!website || !axeContext) {
     return res.status(400).json({ error: "Website or axeContext is missing" });
   }
