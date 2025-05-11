@@ -16,16 +16,16 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
-  website      String? @unique
+  website   String?  @unique
   createdAt DateTime @default(now())
-  Audit Audit[]
+  Audit     Audit[]
 }
 
 model Audit {
-  id        String   @id @default(cuid())
-  userId    String
+  id               String @id @default(cuid())
+  userId           String
   questionsContext Json
-  axeContext Json
-  imagePath String
-  user      User     @relation(fields: [userId], references: [id])
+  axeContext       Json
+  imagePath        String
+  user             User   @relation(fields: [userId], references: [id])
 }
