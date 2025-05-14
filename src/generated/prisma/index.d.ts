@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Audit = $Result.DefaultSelection<Prisma.$AuditPayload>
+/**
+ * Model AuditResult
+ * 
+ */
+export type AuditResult = $Result.DefaultSelection<Prisma.$AuditResultPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get audit(): Prisma.AuditDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditResult`: Exposes CRUD operations for the **AuditResult** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditResults
+    * const auditResults = await prisma.auditResult.findMany()
+    * ```
+    */
+  get auditResult(): Prisma.AuditResultDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Audit: 'Audit'
+    Audit: 'Audit',
+    AuditResult: 'AuditResult'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "audit"
+      modelProps: "user" | "audit" | "auditResult"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -764,6 +780,72 @@ export namespace Prisma {
           }
         }
       }
+      AuditResult: {
+        payload: Prisma.$AuditResultPayload<ExtArgs>
+        fields: Prisma.AuditResultFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditResultFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditResultFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditResultFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditResultFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          findMany: {
+            args: Prisma.AuditResultFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>[]
+          }
+          create: {
+            args: Prisma.AuditResultCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          createMany: {
+            args: Prisma.AuditResultCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AuditResultDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          update: {
+            args: Prisma.AuditResultUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditResultDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditResultUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AuditResultUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditResultPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditResultAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditResult>
+          }
+          groupBy: {
+            args: Prisma.AuditResultGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditResultGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditResultCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditResultCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -850,6 +932,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     audit?: AuditOmit
+    auditResult?: AuditResultOmit
   }
 
   /* Types for Logging */
@@ -967,6 +1050,37 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAuditArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuditWhereInput
+  }
+
+
+  /**
+   * Count Type AuditCountOutputType
+   */
+
+  export type AuditCountOutputType = {
+    AuditResult: number
+  }
+
+  export type AuditCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    AuditResult?: boolean | AuditCountOutputTypeCountAuditResultArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AuditCountOutputType without action
+   */
+  export type AuditCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditCountOutputType
+     */
+    select?: AuditCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AuditCountOutputType without action
+   */
+  export type AuditCountOutputTypeCountAuditResultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditResultWhereInput
   }
 
 
@@ -2064,6 +2178,8 @@ export namespace Prisma {
     axeContext?: boolean
     imagePath?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    AuditResult?: boolean | Audit$AuditResultArgs<ExtArgs>
+    _count?: boolean | AuditCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["audit"]>
 
 
@@ -2079,12 +2195,15 @@ export namespace Prisma {
   export type AuditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "questionsContext" | "axeContext" | "imagePath", ExtArgs["result"]["audit"]>
   export type AuditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    AuditResult?: boolean | Audit$AuditResultArgs<ExtArgs>
+    _count?: boolean | AuditCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $AuditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Audit"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      AuditResult: Prisma.$AuditResultPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2433,6 +2552,7 @@ export namespace Prisma {
   export interface Prisma__AuditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    AuditResult<T extends Audit$AuditResultArgs<ExtArgs> = {}>(args?: Subset<T, Audit$AuditResultArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2810,6 +2930,30 @@ export namespace Prisma {
   }
 
   /**
+   * Audit.AuditResult
+   */
+  export type Audit$AuditResultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    where?: AuditResultWhereInput
+    orderBy?: AuditResultOrderByWithRelationInput | AuditResultOrderByWithRelationInput[]
+    cursor?: AuditResultWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditResultScalarFieldEnum | AuditResultScalarFieldEnum[]
+  }
+
+  /**
    * Audit without action
    */
   export type AuditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2825,6 +2969,980 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AuditInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuditResult
+   */
+
+  export type AggregateAuditResult = {
+    _count: AuditResultCountAggregateOutputType | null
+    _avg: AuditResultAvgAggregateOutputType | null
+    _sum: AuditResultSumAggregateOutputType | null
+    _min: AuditResultMinAggregateOutputType | null
+    _max: AuditResultMaxAggregateOutputType | null
+  }
+
+  export type AuditResultAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type AuditResultSumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type AuditResultMinAggregateOutputType = {
+    id: string | null
+    auditId: string | null
+    score: number | null
+    accessibilityResults: string | null
+    usabilityResults: string | null
+    culturalResults: string | null
+  }
+
+  export type AuditResultMaxAggregateOutputType = {
+    id: string | null
+    auditId: string | null
+    score: number | null
+    accessibilityResults: string | null
+    usabilityResults: string | null
+    culturalResults: string | null
+  }
+
+  export type AuditResultCountAggregateOutputType = {
+    id: number
+    auditId: number
+    score: number
+    accessibilityResults: number
+    usabilityResults: number
+    culturalResults: number
+    _all: number
+  }
+
+
+  export type AuditResultAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type AuditResultSumAggregateInputType = {
+    score?: true
+  }
+
+  export type AuditResultMinAggregateInputType = {
+    id?: true
+    auditId?: true
+    score?: true
+    accessibilityResults?: true
+    usabilityResults?: true
+    culturalResults?: true
+  }
+
+  export type AuditResultMaxAggregateInputType = {
+    id?: true
+    auditId?: true
+    score?: true
+    accessibilityResults?: true
+    usabilityResults?: true
+    culturalResults?: true
+  }
+
+  export type AuditResultCountAggregateInputType = {
+    id?: true
+    auditId?: true
+    score?: true
+    accessibilityResults?: true
+    usabilityResults?: true
+    culturalResults?: true
+    _all?: true
+  }
+
+  export type AuditResultAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditResult to aggregate.
+     */
+    where?: AuditResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditResults to fetch.
+     */
+    orderBy?: AuditResultOrderByWithRelationInput | AuditResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditResults
+    **/
+    _count?: true | AuditResultCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AuditResultAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AuditResultSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditResultMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditResultMaxAggregateInputType
+  }
+
+  export type GetAuditResultAggregateType<T extends AuditResultAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditResult]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditResult[P]>
+      : GetScalarType<T[P], AggregateAuditResult[P]>
+  }
+
+
+
+
+  export type AuditResultGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditResultWhereInput
+    orderBy?: AuditResultOrderByWithAggregationInput | AuditResultOrderByWithAggregationInput[]
+    by: AuditResultScalarFieldEnum[] | AuditResultScalarFieldEnum
+    having?: AuditResultScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditResultCountAggregateInputType | true
+    _avg?: AuditResultAvgAggregateInputType
+    _sum?: AuditResultSumAggregateInputType
+    _min?: AuditResultMinAggregateInputType
+    _max?: AuditResultMaxAggregateInputType
+  }
+
+  export type AuditResultGroupByOutputType = {
+    id: string
+    auditId: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+    _count: AuditResultCountAggregateOutputType | null
+    _avg: AuditResultAvgAggregateOutputType | null
+    _sum: AuditResultSumAggregateOutputType | null
+    _min: AuditResultMinAggregateOutputType | null
+    _max: AuditResultMaxAggregateOutputType | null
+  }
+
+  type GetAuditResultGroupByPayload<T extends AuditResultGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditResultGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditResultGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditResultGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditResultGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditResultSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    auditId?: boolean
+    score?: boolean
+    accessibilityResults?: boolean
+    usabilityResults?: boolean
+    culturalResults?: boolean
+    audit?: boolean | AuditDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditResult"]>
+
+
+
+  export type AuditResultSelectScalar = {
+    id?: boolean
+    auditId?: boolean
+    score?: boolean
+    accessibilityResults?: boolean
+    usabilityResults?: boolean
+    culturalResults?: boolean
+  }
+
+  export type AuditResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auditId" | "score" | "accessibilityResults" | "usabilityResults" | "culturalResults", ExtArgs["result"]["auditResult"]>
+  export type AuditResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    audit?: boolean | AuditDefaultArgs<ExtArgs>
+  }
+
+  export type $AuditResultPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditResult"
+    objects: {
+      audit: Prisma.$AuditPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      auditId: string
+      score: number
+      accessibilityResults: string
+      usabilityResults: string
+      culturalResults: string
+    }, ExtArgs["result"]["auditResult"]>
+    composites: {}
+  }
+
+  type AuditResultGetPayload<S extends boolean | null | undefined | AuditResultDefaultArgs> = $Result.GetResult<Prisma.$AuditResultPayload, S>
+
+  type AuditResultCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditResultFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditResultCountAggregateInputType | true
+    }
+
+  export interface AuditResultDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditResult'], meta: { name: 'AuditResult' } }
+    /**
+     * Find zero or one AuditResult that matches the filter.
+     * @param {AuditResultFindUniqueArgs} args - Arguments to find a AuditResult
+     * @example
+     * // Get one AuditResult
+     * const auditResult = await prisma.auditResult.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditResultFindUniqueArgs>(args: SelectSubset<T, AuditResultFindUniqueArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditResult that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditResultFindUniqueOrThrowArgs} args - Arguments to find a AuditResult
+     * @example
+     * // Get one AuditResult
+     * const auditResult = await prisma.auditResult.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditResultFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditResultFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditResult that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultFindFirstArgs} args - Arguments to find a AuditResult
+     * @example
+     * // Get one AuditResult
+     * const auditResult = await prisma.auditResult.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditResultFindFirstArgs>(args?: SelectSubset<T, AuditResultFindFirstArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditResult that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultFindFirstOrThrowArgs} args - Arguments to find a AuditResult
+     * @example
+     * // Get one AuditResult
+     * const auditResult = await prisma.auditResult.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditResultFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditResultFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditResults that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditResults
+     * const auditResults = await prisma.auditResult.findMany()
+     * 
+     * // Get first 10 AuditResults
+     * const auditResults = await prisma.auditResult.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditResultWithIdOnly = await prisma.auditResult.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditResultFindManyArgs>(args?: SelectSubset<T, AuditResultFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditResult.
+     * @param {AuditResultCreateArgs} args - Arguments to create a AuditResult.
+     * @example
+     * // Create one AuditResult
+     * const AuditResult = await prisma.auditResult.create({
+     *   data: {
+     *     // ... data to create a AuditResult
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditResultCreateArgs>(args: SelectSubset<T, AuditResultCreateArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditResults.
+     * @param {AuditResultCreateManyArgs} args - Arguments to create many AuditResults.
+     * @example
+     * // Create many AuditResults
+     * const auditResult = await prisma.auditResult.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditResultCreateManyArgs>(args?: SelectSubset<T, AuditResultCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AuditResult.
+     * @param {AuditResultDeleteArgs} args - Arguments to delete one AuditResult.
+     * @example
+     * // Delete one AuditResult
+     * const AuditResult = await prisma.auditResult.delete({
+     *   where: {
+     *     // ... filter to delete one AuditResult
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditResultDeleteArgs>(args: SelectSubset<T, AuditResultDeleteArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditResult.
+     * @param {AuditResultUpdateArgs} args - Arguments to update one AuditResult.
+     * @example
+     * // Update one AuditResult
+     * const auditResult = await prisma.auditResult.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditResultUpdateArgs>(args: SelectSubset<T, AuditResultUpdateArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditResults.
+     * @param {AuditResultDeleteManyArgs} args - Arguments to filter AuditResults to delete.
+     * @example
+     * // Delete a few AuditResults
+     * const { count } = await prisma.auditResult.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditResultDeleteManyArgs>(args?: SelectSubset<T, AuditResultDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditResults.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditResults
+     * const auditResult = await prisma.auditResult.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditResultUpdateManyArgs>(args: SelectSubset<T, AuditResultUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AuditResult.
+     * @param {AuditResultUpsertArgs} args - Arguments to update or create a AuditResult.
+     * @example
+     * // Update or create a AuditResult
+     * const auditResult = await prisma.auditResult.upsert({
+     *   create: {
+     *     // ... data to create a AuditResult
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditResult we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditResultUpsertArgs>(args: SelectSubset<T, AuditResultUpsertArgs<ExtArgs>>): Prisma__AuditResultClient<$Result.GetResult<Prisma.$AuditResultPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditResults.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultCountArgs} args - Arguments to filter AuditResults to count.
+     * @example
+     * // Count the number of AuditResults
+     * const count = await prisma.auditResult.count({
+     *   where: {
+     *     // ... the filter for the AuditResults we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditResultCountArgs>(
+      args?: Subset<T, AuditResultCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditResultCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditResult.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditResultAggregateArgs>(args: Subset<T, AuditResultAggregateArgs>): Prisma.PrismaPromise<GetAuditResultAggregateType<T>>
+
+    /**
+     * Group by AuditResult.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditResultGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditResultGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditResultGroupByArgs['orderBy'] }
+        : { orderBy?: AuditResultGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditResultGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditResultGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditResult model
+   */
+  readonly fields: AuditResultFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditResult.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditResultClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    audit<T extends AuditDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AuditDefaultArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditResult model
+   */
+  interface AuditResultFieldRefs {
+    readonly id: FieldRef<"AuditResult", 'String'>
+    readonly auditId: FieldRef<"AuditResult", 'String'>
+    readonly score: FieldRef<"AuditResult", 'Int'>
+    readonly accessibilityResults: FieldRef<"AuditResult", 'String'>
+    readonly usabilityResults: FieldRef<"AuditResult", 'String'>
+    readonly culturalResults: FieldRef<"AuditResult", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditResult findUnique
+   */
+  export type AuditResultFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditResult to fetch.
+     */
+    where: AuditResultWhereUniqueInput
+  }
+
+  /**
+   * AuditResult findUniqueOrThrow
+   */
+  export type AuditResultFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditResult to fetch.
+     */
+    where: AuditResultWhereUniqueInput
+  }
+
+  /**
+   * AuditResult findFirst
+   */
+  export type AuditResultFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditResult to fetch.
+     */
+    where?: AuditResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditResults to fetch.
+     */
+    orderBy?: AuditResultOrderByWithRelationInput | AuditResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditResults.
+     */
+    cursor?: AuditResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditResults.
+     */
+    distinct?: AuditResultScalarFieldEnum | AuditResultScalarFieldEnum[]
+  }
+
+  /**
+   * AuditResult findFirstOrThrow
+   */
+  export type AuditResultFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditResult to fetch.
+     */
+    where?: AuditResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditResults to fetch.
+     */
+    orderBy?: AuditResultOrderByWithRelationInput | AuditResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditResults.
+     */
+    cursor?: AuditResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditResults.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditResults.
+     */
+    distinct?: AuditResultScalarFieldEnum | AuditResultScalarFieldEnum[]
+  }
+
+  /**
+   * AuditResult findMany
+   */
+  export type AuditResultFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditResults to fetch.
+     */
+    where?: AuditResultWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditResults to fetch.
+     */
+    orderBy?: AuditResultOrderByWithRelationInput | AuditResultOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditResults.
+     */
+    cursor?: AuditResultWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditResults from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditResults.
+     */
+    skip?: number
+    distinct?: AuditResultScalarFieldEnum | AuditResultScalarFieldEnum[]
+  }
+
+  /**
+   * AuditResult create
+   */
+  export type AuditResultCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AuditResult.
+     */
+    data: XOR<AuditResultCreateInput, AuditResultUncheckedCreateInput>
+  }
+
+  /**
+   * AuditResult createMany
+   */
+  export type AuditResultCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditResults.
+     */
+    data: AuditResultCreateManyInput | AuditResultCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditResult update
+   */
+  export type AuditResultUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AuditResult.
+     */
+    data: XOR<AuditResultUpdateInput, AuditResultUncheckedUpdateInput>
+    /**
+     * Choose, which AuditResult to update.
+     */
+    where: AuditResultWhereUniqueInput
+  }
+
+  /**
+   * AuditResult updateMany
+   */
+  export type AuditResultUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditResults.
+     */
+    data: XOR<AuditResultUpdateManyMutationInput, AuditResultUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditResults to update
+     */
+    where?: AuditResultWhereInput
+    /**
+     * Limit how many AuditResults to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditResult upsert
+   */
+  export type AuditResultUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AuditResult to update in case it exists.
+     */
+    where: AuditResultWhereUniqueInput
+    /**
+     * In case the AuditResult found by the `where` argument doesn't exist, create a new AuditResult with this data.
+     */
+    create: XOR<AuditResultCreateInput, AuditResultUncheckedCreateInput>
+    /**
+     * In case the AuditResult was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditResultUpdateInput, AuditResultUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditResult delete
+   */
+  export type AuditResultDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
+    /**
+     * Filter which AuditResult to delete.
+     */
+    where: AuditResultWhereUniqueInput
+  }
+
+  /**
+   * AuditResult deleteMany
+   */
+  export type AuditResultDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditResults to delete
+     */
+    where?: AuditResultWhereInput
+    /**
+     * Limit how many AuditResults to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditResult without action
+   */
+  export type AuditResultDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditResult
+     */
+    select?: AuditResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditResult
+     */
+    omit?: AuditResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditResultInclude<ExtArgs> | null
   }
 
 
@@ -2860,6 +3978,18 @@ export namespace Prisma {
   };
 
   export type AuditScalarFieldEnum = (typeof AuditScalarFieldEnum)[keyof typeof AuditScalarFieldEnum]
+
+
+  export const AuditResultScalarFieldEnum: {
+    id: 'id',
+    auditId: 'auditId',
+    score: 'score',
+    accessibilityResults: 'accessibilityResults',
+    usabilityResults: 'usabilityResults',
+    culturalResults: 'culturalResults'
+  };
+
+  export type AuditResultScalarFieldEnum = (typeof AuditResultScalarFieldEnum)[keyof typeof AuditResultScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2919,6 +4049,17 @@ export namespace Prisma {
   export type AuditOrderByRelevanceFieldEnum = (typeof AuditOrderByRelevanceFieldEnum)[keyof typeof AuditOrderByRelevanceFieldEnum]
 
 
+  export const AuditResultOrderByRelevanceFieldEnum: {
+    id: 'id',
+    auditId: 'auditId',
+    accessibilityResults: 'accessibilityResults',
+    usabilityResults: 'usabilityResults',
+    culturalResults: 'culturalResults'
+  };
+
+  export type AuditResultOrderByRelevanceFieldEnum = (typeof AuditResultOrderByRelevanceFieldEnum)[keyof typeof AuditResultOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -2956,6 +4097,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
   /**
    * Deep Input Types
@@ -3018,6 +4166,7 @@ export namespace Prisma {
     axeContext?: JsonFilter<"Audit">
     imagePath?: StringFilter<"Audit"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    AuditResult?: AuditResultListRelationFilter
   }
 
   export type AuditOrderByWithRelationInput = {
@@ -3027,6 +4176,7 @@ export namespace Prisma {
     axeContext?: SortOrder
     imagePath?: SortOrder
     user?: UserOrderByWithRelationInput
+    AuditResult?: AuditResultOrderByRelationAggregateInput
     _relevance?: AuditOrderByRelevanceInput
   }
 
@@ -3040,6 +4190,7 @@ export namespace Prisma {
     axeContext?: JsonFilter<"Audit">
     imagePath?: StringFilter<"Audit"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    AuditResult?: AuditResultListRelationFilter
   }, "id">
 
   export type AuditOrderByWithAggregationInput = {
@@ -3062,6 +4213,69 @@ export namespace Prisma {
     questionsContext?: JsonWithAggregatesFilter<"Audit">
     axeContext?: JsonWithAggregatesFilter<"Audit">
     imagePath?: StringWithAggregatesFilter<"Audit"> | string
+  }
+
+  export type AuditResultWhereInput = {
+    AND?: AuditResultWhereInput | AuditResultWhereInput[]
+    OR?: AuditResultWhereInput[]
+    NOT?: AuditResultWhereInput | AuditResultWhereInput[]
+    id?: StringFilter<"AuditResult"> | string
+    auditId?: StringFilter<"AuditResult"> | string
+    score?: IntFilter<"AuditResult"> | number
+    accessibilityResults?: StringFilter<"AuditResult"> | string
+    usabilityResults?: StringFilter<"AuditResult"> | string
+    culturalResults?: StringFilter<"AuditResult"> | string
+    audit?: XOR<AuditScalarRelationFilter, AuditWhereInput>
+  }
+
+  export type AuditResultOrderByWithRelationInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    score?: SortOrder
+    accessibilityResults?: SortOrder
+    usabilityResults?: SortOrder
+    culturalResults?: SortOrder
+    audit?: AuditOrderByWithRelationInput
+    _relevance?: AuditResultOrderByRelevanceInput
+  }
+
+  export type AuditResultWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditResultWhereInput | AuditResultWhereInput[]
+    OR?: AuditResultWhereInput[]
+    NOT?: AuditResultWhereInput | AuditResultWhereInput[]
+    auditId?: StringFilter<"AuditResult"> | string
+    score?: IntFilter<"AuditResult"> | number
+    accessibilityResults?: StringFilter<"AuditResult"> | string
+    usabilityResults?: StringFilter<"AuditResult"> | string
+    culturalResults?: StringFilter<"AuditResult"> | string
+    audit?: XOR<AuditScalarRelationFilter, AuditWhereInput>
+  }, "id">
+
+  export type AuditResultOrderByWithAggregationInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    score?: SortOrder
+    accessibilityResults?: SortOrder
+    usabilityResults?: SortOrder
+    culturalResults?: SortOrder
+    _count?: AuditResultCountOrderByAggregateInput
+    _avg?: AuditResultAvgOrderByAggregateInput
+    _max?: AuditResultMaxOrderByAggregateInput
+    _min?: AuditResultMinOrderByAggregateInput
+    _sum?: AuditResultSumOrderByAggregateInput
+  }
+
+  export type AuditResultScalarWhereWithAggregatesInput = {
+    AND?: AuditResultScalarWhereWithAggregatesInput | AuditResultScalarWhereWithAggregatesInput[]
+    OR?: AuditResultScalarWhereWithAggregatesInput[]
+    NOT?: AuditResultScalarWhereWithAggregatesInput | AuditResultScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditResult"> | string
+    auditId?: StringWithAggregatesFilter<"AuditResult"> | string
+    score?: IntWithAggregatesFilter<"AuditResult"> | number
+    accessibilityResults?: StringWithAggregatesFilter<"AuditResult"> | string
+    usabilityResults?: StringWithAggregatesFilter<"AuditResult"> | string
+    culturalResults?: StringWithAggregatesFilter<"AuditResult"> | string
   }
 
   export type UserCreateInput = {
@@ -3116,6 +4330,7 @@ export namespace Prisma {
     axeContext: JsonNullValueInput | InputJsonValue
     imagePath: string
     user: UserCreateNestedOneWithoutAuditInput
+    AuditResult?: AuditResultCreateNestedManyWithoutAuditInput
   }
 
   export type AuditUncheckedCreateInput = {
@@ -3124,6 +4339,7 @@ export namespace Prisma {
     questionsContext: JsonNullValueInput | InputJsonValue
     axeContext: JsonNullValueInput | InputJsonValue
     imagePath: string
+    AuditResult?: AuditResultUncheckedCreateNestedManyWithoutAuditInput
   }
 
   export type AuditUpdateInput = {
@@ -3132,6 +4348,7 @@ export namespace Prisma {
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutAuditNestedInput
+    AuditResult?: AuditResultUpdateManyWithoutAuditNestedInput
   }
 
   export type AuditUncheckedUpdateInput = {
@@ -3140,6 +4357,7 @@ export namespace Prisma {
     questionsContext?: JsonNullValueInput | InputJsonValue
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
+    AuditResult?: AuditResultUncheckedUpdateManyWithoutAuditNestedInput
   }
 
   export type AuditCreateManyInput = {
@@ -3163,6 +4381,68 @@ export namespace Prisma {
     questionsContext?: JsonNullValueInput | InputJsonValue
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultCreateInput = {
+    id?: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+    audit: AuditCreateNestedOneWithoutAuditResultInput
+  }
+
+  export type AuditResultUncheckedCreateInput = {
+    id?: string
+    auditId: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+  }
+
+  export type AuditResultUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
+    audit?: AuditUpdateOneRequiredWithoutAuditResultNestedInput
+  }
+
+  export type AuditResultUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultCreateManyInput = {
+    id?: string
+    auditId: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+  }
+
+  export type AuditResultUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3323,6 +4603,16 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type AuditResultListRelationFilter = {
+    every?: AuditResultWhereInput
+    some?: AuditResultWhereInput
+    none?: AuditResultWhereInput
+  }
+
+  export type AuditResultOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AuditOrderByRelevanceInput = {
     fields: AuditOrderByRelevanceFieldEnum | AuditOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -3373,6 +4663,79 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type AuditScalarRelationFilter = {
+    is?: AuditWhereInput
+    isNot?: AuditWhereInput
+  }
+
+  export type AuditResultOrderByRelevanceInput = {
+    fields: AuditResultOrderByRelevanceFieldEnum | AuditResultOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type AuditResultCountOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    score?: SortOrder
+    accessibilityResults?: SortOrder
+    usabilityResults?: SortOrder
+    culturalResults?: SortOrder
+  }
+
+  export type AuditResultAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type AuditResultMaxOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    score?: SortOrder
+    accessibilityResults?: SortOrder
+    usabilityResults?: SortOrder
+    culturalResults?: SortOrder
+  }
+
+  export type AuditResultMinOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    score?: SortOrder
+    accessibilityResults?: SortOrder
+    usabilityResults?: SortOrder
+    culturalResults?: SortOrder
+  }
+
+  export type AuditResultSumOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type AuditCreateNestedManyWithoutUserInput = {
@@ -3435,12 +4798,76 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type AuditResultCreateNestedManyWithoutAuditInput = {
+    create?: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput> | AuditResultCreateWithoutAuditInput[] | AuditResultUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: AuditResultCreateOrConnectWithoutAuditInput | AuditResultCreateOrConnectWithoutAuditInput[]
+    createMany?: AuditResultCreateManyAuditInputEnvelope
+    connect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+  }
+
+  export type AuditResultUncheckedCreateNestedManyWithoutAuditInput = {
+    create?: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput> | AuditResultCreateWithoutAuditInput[] | AuditResultUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: AuditResultCreateOrConnectWithoutAuditInput | AuditResultCreateOrConnectWithoutAuditInput[]
+    createMany?: AuditResultCreateManyAuditInputEnvelope
+    connect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutAuditNestedInput = {
     create?: XOR<UserCreateWithoutAuditInput, UserUncheckedCreateWithoutAuditInput>
     connectOrCreate?: UserCreateOrConnectWithoutAuditInput
     upsert?: UserUpsertWithoutAuditInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuditInput, UserUpdateWithoutAuditInput>, UserUncheckedUpdateWithoutAuditInput>
+  }
+
+  export type AuditResultUpdateManyWithoutAuditNestedInput = {
+    create?: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput> | AuditResultCreateWithoutAuditInput[] | AuditResultUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: AuditResultCreateOrConnectWithoutAuditInput | AuditResultCreateOrConnectWithoutAuditInput[]
+    upsert?: AuditResultUpsertWithWhereUniqueWithoutAuditInput | AuditResultUpsertWithWhereUniqueWithoutAuditInput[]
+    createMany?: AuditResultCreateManyAuditInputEnvelope
+    set?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    disconnect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    delete?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    connect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    update?: AuditResultUpdateWithWhereUniqueWithoutAuditInput | AuditResultUpdateWithWhereUniqueWithoutAuditInput[]
+    updateMany?: AuditResultUpdateManyWithWhereWithoutAuditInput | AuditResultUpdateManyWithWhereWithoutAuditInput[]
+    deleteMany?: AuditResultScalarWhereInput | AuditResultScalarWhereInput[]
+  }
+
+  export type AuditResultUncheckedUpdateManyWithoutAuditNestedInput = {
+    create?: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput> | AuditResultCreateWithoutAuditInput[] | AuditResultUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: AuditResultCreateOrConnectWithoutAuditInput | AuditResultCreateOrConnectWithoutAuditInput[]
+    upsert?: AuditResultUpsertWithWhereUniqueWithoutAuditInput | AuditResultUpsertWithWhereUniqueWithoutAuditInput[]
+    createMany?: AuditResultCreateManyAuditInputEnvelope
+    set?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    disconnect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    delete?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    connect?: AuditResultWhereUniqueInput | AuditResultWhereUniqueInput[]
+    update?: AuditResultUpdateWithWhereUniqueWithoutAuditInput | AuditResultUpdateWithWhereUniqueWithoutAuditInput[]
+    updateMany?: AuditResultUpdateManyWithWhereWithoutAuditInput | AuditResultUpdateManyWithWhereWithoutAuditInput[]
+    deleteMany?: AuditResultScalarWhereInput | AuditResultScalarWhereInput[]
+  }
+
+  export type AuditCreateNestedOneWithoutAuditResultInput = {
+    create?: XOR<AuditCreateWithoutAuditResultInput, AuditUncheckedCreateWithoutAuditResultInput>
+    connectOrCreate?: AuditCreateOrConnectWithoutAuditResultInput
+    connect?: AuditWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type AuditUpdateOneRequiredWithoutAuditResultNestedInput = {
+    create?: XOR<AuditCreateWithoutAuditResultInput, AuditUncheckedCreateWithoutAuditResultInput>
+    connectOrCreate?: AuditCreateOrConnectWithoutAuditResultInput
+    upsert?: AuditUpsertWithoutAuditResultInput
+    connect?: AuditWhereUniqueInput
+    update?: XOR<XOR<AuditUpdateToOneWithWhereWithoutAuditResultInput, AuditUpdateWithoutAuditResultInput>, AuditUncheckedUpdateWithoutAuditResultInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3579,11 +5006,39 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type AuditCreateWithoutUserInput = {
     id?: string
     questionsContext: JsonNullValueInput | InputJsonValue
     axeContext: JsonNullValueInput | InputJsonValue
     imagePath: string
+    AuditResult?: AuditResultCreateNestedManyWithoutAuditInput
   }
 
   export type AuditUncheckedCreateWithoutUserInput = {
@@ -3591,6 +5046,7 @@ export namespace Prisma {
     questionsContext: JsonNullValueInput | InputJsonValue
     axeContext: JsonNullValueInput | InputJsonValue
     imagePath: string
+    AuditResult?: AuditResultUncheckedCreateNestedManyWithoutAuditInput
   }
 
   export type AuditCreateOrConnectWithoutUserInput = {
@@ -3647,6 +5103,32 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutAuditInput, UserUncheckedCreateWithoutAuditInput>
   }
 
+  export type AuditResultCreateWithoutAuditInput = {
+    id?: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+  }
+
+  export type AuditResultUncheckedCreateWithoutAuditInput = {
+    id?: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+  }
+
+  export type AuditResultCreateOrConnectWithoutAuditInput = {
+    where: AuditResultWhereUniqueInput
+    create: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput>
+  }
+
+  export type AuditResultCreateManyAuditInputEnvelope = {
+    data: AuditResultCreateManyAuditInput | AuditResultCreateManyAuditInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutAuditInput = {
     update: XOR<UserUpdateWithoutAuditInput, UserUncheckedUpdateWithoutAuditInput>
     create: XOR<UserCreateWithoutAuditInput, UserUncheckedCreateWithoutAuditInput>
@@ -3670,6 +5152,82 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AuditResultUpsertWithWhereUniqueWithoutAuditInput = {
+    where: AuditResultWhereUniqueInput
+    update: XOR<AuditResultUpdateWithoutAuditInput, AuditResultUncheckedUpdateWithoutAuditInput>
+    create: XOR<AuditResultCreateWithoutAuditInput, AuditResultUncheckedCreateWithoutAuditInput>
+  }
+
+  export type AuditResultUpdateWithWhereUniqueWithoutAuditInput = {
+    where: AuditResultWhereUniqueInput
+    data: XOR<AuditResultUpdateWithoutAuditInput, AuditResultUncheckedUpdateWithoutAuditInput>
+  }
+
+  export type AuditResultUpdateManyWithWhereWithoutAuditInput = {
+    where: AuditResultScalarWhereInput
+    data: XOR<AuditResultUpdateManyMutationInput, AuditResultUncheckedUpdateManyWithoutAuditInput>
+  }
+
+  export type AuditResultScalarWhereInput = {
+    AND?: AuditResultScalarWhereInput | AuditResultScalarWhereInput[]
+    OR?: AuditResultScalarWhereInput[]
+    NOT?: AuditResultScalarWhereInput | AuditResultScalarWhereInput[]
+    id?: StringFilter<"AuditResult"> | string
+    auditId?: StringFilter<"AuditResult"> | string
+    score?: IntFilter<"AuditResult"> | number
+    accessibilityResults?: StringFilter<"AuditResult"> | string
+    usabilityResults?: StringFilter<"AuditResult"> | string
+    culturalResults?: StringFilter<"AuditResult"> | string
+  }
+
+  export type AuditCreateWithoutAuditResultInput = {
+    id?: string
+    questionsContext: JsonNullValueInput | InputJsonValue
+    axeContext: JsonNullValueInput | InputJsonValue
+    imagePath: string
+    user: UserCreateNestedOneWithoutAuditInput
+  }
+
+  export type AuditUncheckedCreateWithoutAuditResultInput = {
+    id?: string
+    userId: string
+    questionsContext: JsonNullValueInput | InputJsonValue
+    axeContext: JsonNullValueInput | InputJsonValue
+    imagePath: string
+  }
+
+  export type AuditCreateOrConnectWithoutAuditResultInput = {
+    where: AuditWhereUniqueInput
+    create: XOR<AuditCreateWithoutAuditResultInput, AuditUncheckedCreateWithoutAuditResultInput>
+  }
+
+  export type AuditUpsertWithoutAuditResultInput = {
+    update: XOR<AuditUpdateWithoutAuditResultInput, AuditUncheckedUpdateWithoutAuditResultInput>
+    create: XOR<AuditCreateWithoutAuditResultInput, AuditUncheckedCreateWithoutAuditResultInput>
+    where?: AuditWhereInput
+  }
+
+  export type AuditUpdateToOneWithWhereWithoutAuditResultInput = {
+    where?: AuditWhereInput
+    data: XOR<AuditUpdateWithoutAuditResultInput, AuditUncheckedUpdateWithoutAuditResultInput>
+  }
+
+  export type AuditUpdateWithoutAuditResultInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionsContext?: JsonNullValueInput | InputJsonValue
+    axeContext?: JsonNullValueInput | InputJsonValue
+    imagePath?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutAuditNestedInput
+  }
+
+  export type AuditUncheckedUpdateWithoutAuditResultInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    questionsContext?: JsonNullValueInput | InputJsonValue
+    axeContext?: JsonNullValueInput | InputJsonValue
+    imagePath?: StringFieldUpdateOperationsInput | string
+  }
+
   export type AuditCreateManyUserInput = {
     id?: string
     questionsContext: JsonNullValueInput | InputJsonValue
@@ -3682,6 +5240,7 @@ export namespace Prisma {
     questionsContext?: JsonNullValueInput | InputJsonValue
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
+    AuditResult?: AuditResultUpdateManyWithoutAuditNestedInput
   }
 
   export type AuditUncheckedUpdateWithoutUserInput = {
@@ -3689,6 +5248,7 @@ export namespace Prisma {
     questionsContext?: JsonNullValueInput | InputJsonValue
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
+    AuditResult?: AuditResultUncheckedUpdateManyWithoutAuditNestedInput
   }
 
   export type AuditUncheckedUpdateManyWithoutUserInput = {
@@ -3696,6 +5256,38 @@ export namespace Prisma {
     questionsContext?: JsonNullValueInput | InputJsonValue
     axeContext?: JsonNullValueInput | InputJsonValue
     imagePath?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultCreateManyAuditInput = {
+    id?: string
+    score: number
+    accessibilityResults: string
+    usabilityResults: string
+    culturalResults: string
+  }
+
+  export type AuditResultUpdateWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultUncheckedUpdateWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditResultUncheckedUpdateManyWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    accessibilityResults?: StringFieldUpdateOperationsInput | string
+    usabilityResults?: StringFieldUpdateOperationsInput | string
+    culturalResults?: StringFieldUpdateOperationsInput | string
   }
 
 

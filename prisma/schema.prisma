@@ -28,4 +28,15 @@ model Audit {
   axeContext Json
   imagePath String
   user      User     @relation(fields: [userId], references: [id])
+  AuditResult AuditResult[]
+}
+
+model AuditResult {
+  id                    String   @id @default(cuid())
+  auditId               String
+  score                 Int
+  accessibilityResults  String   @db.Text
+  usabilityResults      String   @db.Text
+  culturalResults       String   @db.Text
+  audit                 Audit    @relation(fields: [auditId], references: [id])
 }

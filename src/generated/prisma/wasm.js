@@ -134,6 +134,15 @@ exports.Prisma.AuditScalarFieldEnum = {
   imagePath: 'imagePath'
 };
 
+exports.Prisma.AuditResultScalarFieldEnum = {
+  id: 'id',
+  auditId: 'auditId',
+  score: 'score',
+  accessibilityResults: 'accessibilityResults',
+  usabilityResults: 'usabilityResults',
+  culturalResults: 'culturalResults'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -170,10 +179,19 @@ exports.Prisma.AuditOrderByRelevanceFieldEnum = {
   imagePath: 'imagePath'
 };
 
+exports.Prisma.AuditResultOrderByRelevanceFieldEnum = {
+  id: 'id',
+  auditId: 'auditId',
+  accessibilityResults: 'accessibilityResults',
+  usabilityResults: 'usabilityResults',
+  culturalResults: 'culturalResults'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Audit: 'Audit'
+  Audit: 'Audit',
+  AuditResult: 'AuditResult'
 };
 
 /**
