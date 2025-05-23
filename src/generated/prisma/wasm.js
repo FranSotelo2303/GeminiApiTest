@@ -140,7 +140,8 @@ exports.Prisma.AuditResultScalarFieldEnum = {
   score: 'score',
   accessibilityResults: 'accessibilityResults',
   usabilityResults: 'usabilityResults',
-  culturalResults: 'culturalResults'
+  culturalResults: 'culturalResults',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {

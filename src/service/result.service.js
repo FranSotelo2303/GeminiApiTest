@@ -7,7 +7,7 @@ import prisma from "../db/prisma.js";
 // Tu API Key
 const genAI = new GoogleGenerativeAI("AIzaSyDWXx0Dm8SvgSTc2FKjPT-SA430VTiDLRw");
 
-export const getResult = async (auditID) => {
+export const createResult = async (auditID) => {
     const audit = await prisma.audit.findUnique({
         where: {
         id: auditID,
@@ -34,7 +34,9 @@ export const getResult = async (auditID) => {
 
     const usabilityResult = await makeQuestionWithImage(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion usando las heuristicas de nielsen de la pagina, hazlo en español por favor`,  audit.imagePath);
 
-    const culturalResult = await makeQuestion(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion en terminos de sentido cultural de la pagina, que tan bien adecua su contenido para el publico objetivo basandose en su cultura y aspectos como estos, hazlo en español por favor`,  audit.imagePath);
+    const culturalResult = await makeQuestionWithImage(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion en terminos de sentido cultural de la pagina, que tan bien adecua su contenido para el publico objetivo basandose en su cultura y aspectos como estos, hazlo en español por favor`,  audit.imagePath);
+
+    const score = await makeQuestion(`Tengo los siguientes resultados de la auditoría de accesibilidad: ${axeContextText} y el siguiente resultado de la evaluación de usabilidad: ${usabilityResult} y el siguiente resultado de la evaluación cultural: ${culturalResult}. Por favor, genera un puntaje entre 0 y 100 considerando todos los resultados. solo reponde con el puntaje, no agregues nada más. `);
 
     const result = prisma.auditResult.create({
         data: {
@@ -42,11 +44,52 @@ export const getResult = async (auditID) => {
             usabilityResults: usabilityResult,
             culturalResults: culturalResult,
             auditId: auditID,
-            score: 0,
+            score: Number(score),
         }
     });
 
     return result;
+}
+
+export const getResult = async (auditID) => {
+    const audit = await prisma.audit.findUnique({
+        where: {
+            id: auditID,
+        }
+    });
+
+    if (!audit) {
+        throw new Error("Audit not found");
+    }
+
+    const result = await prisma.auditResult.findFirst({
+        where: {
+            auditId: auditID,
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
+    });
+
+    if (!result) {
+        throw new Error("Result not found");
+    }
+
+    return result;
+}
+
+export const getResultErrors = async (auditID) => {
+    const audit = await prisma.audit.findUnique({
+        where: {
+            id: auditID,
+        }
+    });
+
+    if (!audit) {
+        throw new Error("Audit not found");
+    }
+
+    return audit.axeContext.data;
 }
 
 const makeQuestion = async (text) => {
@@ -68,7 +111,6 @@ const makeQuestionWithImage = async (text, imagePath) => {
     const routeImage = path.join(imagePath);
     const imageBuffer = fs.readFileSync(routeImage);
     const imageBase64 = imageBuffer.toString('base64');
-
     
     const imagePart = {
         inlineData: {

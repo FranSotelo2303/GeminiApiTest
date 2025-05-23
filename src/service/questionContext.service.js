@@ -1,4 +1,5 @@
 import prisma from "../db/prisma.js";
+import { createResult } from "./result.service.js";
 
 export const createQuestionContext = async (auditId ,questionContext) => {
     const exitsAudit = await prisma.audit.findFirst({
@@ -19,6 +20,16 @@ export const createQuestionContext = async (auditId ,questionContext) => {
             questionsContext: { data: questionContext },
         },
     });
+
+    if (!updatedAudit) {
+        throw new Error("Failed to update audit");
+    }
+
+    const result = await createResult(auditId);
+
+    if (!result) {
+        throw new Error("Failed to create result");
+    }
 
     return updatedAudit;
 }

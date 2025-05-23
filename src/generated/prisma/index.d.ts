@@ -2999,6 +2999,7 @@ export namespace Prisma {
     accessibilityResults: string | null
     usabilityResults: string | null
     culturalResults: string | null
+    createdAt: Date | null
   }
 
   export type AuditResultMaxAggregateOutputType = {
@@ -3008,6 +3009,7 @@ export namespace Prisma {
     accessibilityResults: string | null
     usabilityResults: string | null
     culturalResults: string | null
+    createdAt: Date | null
   }
 
   export type AuditResultCountAggregateOutputType = {
@@ -3017,6 +3019,7 @@ export namespace Prisma {
     accessibilityResults: number
     usabilityResults: number
     culturalResults: number
+    createdAt: number
     _all: number
   }
 
@@ -3036,6 +3039,7 @@ export namespace Prisma {
     accessibilityResults?: true
     usabilityResults?: true
     culturalResults?: true
+    createdAt?: true
   }
 
   export type AuditResultMaxAggregateInputType = {
@@ -3045,6 +3049,7 @@ export namespace Prisma {
     accessibilityResults?: true
     usabilityResults?: true
     culturalResults?: true
+    createdAt?: true
   }
 
   export type AuditResultCountAggregateInputType = {
@@ -3054,6 +3059,7 @@ export namespace Prisma {
     accessibilityResults?: true
     usabilityResults?: true
     culturalResults?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -3150,6 +3156,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt: Date
     _count: AuditResultCountAggregateOutputType | null
     _avg: AuditResultAvgAggregateOutputType | null
     _sum: AuditResultSumAggregateOutputType | null
@@ -3178,6 +3185,7 @@ export namespace Prisma {
     accessibilityResults?: boolean
     usabilityResults?: boolean
     culturalResults?: boolean
+    createdAt?: boolean
     audit?: boolean | AuditDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auditResult"]>
 
@@ -3190,9 +3198,10 @@ export namespace Prisma {
     accessibilityResults?: boolean
     usabilityResults?: boolean
     culturalResults?: boolean
+    createdAt?: boolean
   }
 
-  export type AuditResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auditId" | "score" | "accessibilityResults" | "usabilityResults" | "culturalResults", ExtArgs["result"]["auditResult"]>
+  export type AuditResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auditId" | "score" | "accessibilityResults" | "usabilityResults" | "culturalResults" | "createdAt", ExtArgs["result"]["auditResult"]>
   export type AuditResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     audit?: boolean | AuditDefaultArgs<ExtArgs>
   }
@@ -3209,6 +3218,7 @@ export namespace Prisma {
       accessibilityResults: string
       usabilityResults: string
       culturalResults: string
+      createdAt: Date
     }, ExtArgs["result"]["auditResult"]>
     composites: {}
   }
@@ -3585,6 +3595,7 @@ export namespace Prisma {
     readonly accessibilityResults: FieldRef<"AuditResult", 'String'>
     readonly usabilityResults: FieldRef<"AuditResult", 'String'>
     readonly culturalResults: FieldRef<"AuditResult", 'String'>
+    readonly createdAt: FieldRef<"AuditResult", 'DateTime'>
   }
     
 
@@ -3986,7 +3997,8 @@ export namespace Prisma {
     score: 'score',
     accessibilityResults: 'accessibilityResults',
     usabilityResults: 'usabilityResults',
-    culturalResults: 'culturalResults'
+    culturalResults: 'culturalResults',
+    createdAt: 'createdAt'
   };
 
   export type AuditResultScalarFieldEnum = (typeof AuditResultScalarFieldEnum)[keyof typeof AuditResultScalarFieldEnum]
@@ -4225,6 +4237,7 @@ export namespace Prisma {
     accessibilityResults?: StringFilter<"AuditResult"> | string
     usabilityResults?: StringFilter<"AuditResult"> | string
     culturalResults?: StringFilter<"AuditResult"> | string
+    createdAt?: DateTimeFilter<"AuditResult"> | Date | string
     audit?: XOR<AuditScalarRelationFilter, AuditWhereInput>
   }
 
@@ -4235,6 +4248,7 @@ export namespace Prisma {
     accessibilityResults?: SortOrder
     usabilityResults?: SortOrder
     culturalResults?: SortOrder
+    createdAt?: SortOrder
     audit?: AuditOrderByWithRelationInput
     _relevance?: AuditResultOrderByRelevanceInput
   }
@@ -4249,6 +4263,7 @@ export namespace Prisma {
     accessibilityResults?: StringFilter<"AuditResult"> | string
     usabilityResults?: StringFilter<"AuditResult"> | string
     culturalResults?: StringFilter<"AuditResult"> | string
+    createdAt?: DateTimeFilter<"AuditResult"> | Date | string
     audit?: XOR<AuditScalarRelationFilter, AuditWhereInput>
   }, "id">
 
@@ -4259,6 +4274,7 @@ export namespace Prisma {
     accessibilityResults?: SortOrder
     usabilityResults?: SortOrder
     culturalResults?: SortOrder
+    createdAt?: SortOrder
     _count?: AuditResultCountOrderByAggregateInput
     _avg?: AuditResultAvgOrderByAggregateInput
     _max?: AuditResultMaxOrderByAggregateInput
@@ -4276,6 +4292,7 @@ export namespace Prisma {
     accessibilityResults?: StringWithAggregatesFilter<"AuditResult"> | string
     usabilityResults?: StringWithAggregatesFilter<"AuditResult"> | string
     culturalResults?: StringWithAggregatesFilter<"AuditResult"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AuditResult"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -4389,6 +4406,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
     audit: AuditCreateNestedOneWithoutAuditResultInput
   }
 
@@ -4399,6 +4417,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
   }
 
   export type AuditResultUpdateInput = {
@@ -4407,6 +4426,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     audit?: AuditUpdateOneRequiredWithoutAuditResultNestedInput
   }
 
@@ -4417,6 +4437,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuditResultCreateManyInput = {
@@ -4426,6 +4447,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
   }
 
   export type AuditResultUpdateManyMutationInput = {
@@ -4434,6 +4456,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuditResultUncheckedUpdateManyInput = {
@@ -4443,6 +4466,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4694,6 +4718,7 @@ export namespace Prisma {
     accessibilityResults?: SortOrder
     usabilityResults?: SortOrder
     culturalResults?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type AuditResultAvgOrderByAggregateInput = {
@@ -4707,6 +4732,7 @@ export namespace Prisma {
     accessibilityResults?: SortOrder
     usabilityResults?: SortOrder
     culturalResults?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type AuditResultMinOrderByAggregateInput = {
@@ -4716,6 +4742,7 @@ export namespace Prisma {
     accessibilityResults?: SortOrder
     usabilityResults?: SortOrder
     culturalResults?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type AuditResultSumOrderByAggregateInput = {
@@ -5109,6 +5136,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
   }
 
   export type AuditResultUncheckedCreateWithoutAuditInput = {
@@ -5117,6 +5145,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
   }
 
   export type AuditResultCreateOrConnectWithoutAuditInput = {
@@ -5178,6 +5207,7 @@ export namespace Prisma {
     accessibilityResults?: StringFilter<"AuditResult"> | string
     usabilityResults?: StringFilter<"AuditResult"> | string
     culturalResults?: StringFilter<"AuditResult"> | string
+    createdAt?: DateTimeFilter<"AuditResult"> | Date | string
   }
 
   export type AuditCreateWithoutAuditResultInput = {
@@ -5264,6 +5294,7 @@ export namespace Prisma {
     accessibilityResults: string
     usabilityResults: string
     culturalResults: string
+    createdAt?: Date | string
   }
 
   export type AuditResultUpdateWithoutAuditInput = {
@@ -5272,6 +5303,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuditResultUncheckedUpdateWithoutAuditInput = {
@@ -5280,6 +5312,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AuditResultUncheckedUpdateManyWithoutAuditInput = {
@@ -5288,6 +5321,7 @@ export namespace Prisma {
     accessibilityResults?: StringFieldUpdateOperationsInput | string
     usabilityResults?: StringFieldUpdateOperationsInput | string
     culturalResults?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
