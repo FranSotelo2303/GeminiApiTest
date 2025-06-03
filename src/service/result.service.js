@@ -34,7 +34,7 @@ export const createResult = async (auditID) => {
 
     const usabilityResult = await makeQuestionWithImage(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion usando las heuristicas de nielsen de la pagina, hazlo en español por favor`,  audit.imagePath);
 
-    const culturalResult = await makeQuestionWithImage(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion en terminos de sentido cultural de la pagina, que tan bien adecua su contenido para el publico objetivo basandose en su cultura y aspectos como estos, hazlo en español por favor`,  audit.imagePath);
+    const culturalResult = await makeQuestionWithImage(`La siguiente imagen es una captura de una pagina web, para mas contexto el usuario brindó el siguiente texto: ${questionsContextText}\n Quiero que realices una evaluacion en terminos de sentido cultural y carga cognitiva de la pagina, que tan bien adecua su contenido para el publico objetivo basandose en su cultura y aspectos como estos, hazlo en español por favor`,  audit.imagePath);
 
     const score = await makeQuestion(`Tengo los siguientes resultados de la auditoría de accesibilidad: ${axeContextText} y el siguiente resultado de la evaluación de usabilidad: ${usabilityResult} y el siguiente resultado de la evaluación cultural: ${culturalResult}. Por favor, genera un puntaje entre 0 y 100 considerando todos los resultados. solo reponde con el puntaje, no agregues nada más. `);
 
